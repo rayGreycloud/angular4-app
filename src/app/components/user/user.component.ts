@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   email:string;
   address: Address;
   hobbies:string[];
+  posts:Post[];
 
   constructor(private dataService:DataService) {
     console.log('constructor ran...');
@@ -29,6 +30,10 @@ export class UserComponent implements OnInit {
       state: 'MA'
     }
     this.hobbies = ['Pod racing', 'Dark Side', 'Conquering the Weak'];
+
+    this.dataService.getPosts().subscribe((posts) => {
+      this.posts = posts;
+    });
   }
 
   onClick() {
@@ -56,4 +61,11 @@ interface Address {
   street:string,
   city:string,
   state:string
+}
+
+interface Post {
+  id: number,
+  title: string,
+  body: string,
+  userId: number
 }
